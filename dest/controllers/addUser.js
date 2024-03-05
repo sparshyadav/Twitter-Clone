@@ -25,13 +25,19 @@ function createUser(firstname, lastname, email, password, bio) {
         console.log(user);
     });
 }
-exports.addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { firstname, lastname, email, password, bio } = req.body;
-    try {
-        createUser(firstname, lastname, email, password, bio);
-    }
-    catch (err) {
-        console.error(err);
-        console.log(err);
-    }
-});
+function addUser(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log(req.body);
+        const { firstname, lastname, email, password, bio } = req.body;
+        try {
+            createUser(firstname, lastname, email, password, bio);
+            return res.status(200).send("successful");
+        }
+        catch (err) {
+            console.error(err);
+            console.log(err);
+            return res.status(503).send("error");
+        }
+    });
+}
+exports.default = addUser;

@@ -21,3 +21,11 @@ model User {
   password  String
   bio       String
 }
+
+model Tweet {
+  id  Int @id @default(autoincrement())
+  title    String
+  content  String
+  createAt DateTime @default(now())
+  userid   Int
+}

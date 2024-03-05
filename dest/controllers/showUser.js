@@ -15,14 +15,18 @@ function readUser() {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield prisma.user.findMany();
         console.log(users);
+        return users;
     });
 }
-exports.getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        readUser();
+        const users = yield readUser();
+        return res.status(200).json(users);
     }
     catch (err) {
         console.error(err);
         console.log(err);
+        return res.send("Error in Fetching Data");
     }
 });
+exports.default = getUser;
