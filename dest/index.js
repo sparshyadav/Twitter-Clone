@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const userRoutes = require("./routes/user");
 const tweetRoutes = require("./routes/tweet");
+const loginRoutes = require("./routes/login");
 const PORT = 4455;
 const app = (0, express_1.default)();
 app.set("view engine", "hbs");
@@ -14,6 +15,8 @@ app.get("/", (req, res) => {
     res.render("home");
 });
 app.use("/user", userRoutes);
+app.use("/tweet", tweetRoutes);
+app.use("/login", loginRoutes);
 // app.use("/tweet", tweetRoutes);
 app.listen(PORT, () => {
     console.log(`https://localhost:${PORT}`);

@@ -1,4 +1,3 @@
-// const express=require("express");
 import express from "express";
 const router = express.Router();
 import { addUser, findbyusername, findbyId, getUser, updateuser, deleteUser } from "../controllers/User";
