@@ -7,5 +7,7 @@ const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 const { createTweet } = require("../controllers/Tweet");
 const auth_1 = require("../utils/auth");
+const Tweet_1 = require("../controllers/Tweet");
 router.post("/create", auth_1.verifyToken, createTweet);
+router.get("/get/:id", Tweet_1.getAllTweets);
 module.exports = router;

@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-// const {createJwtToken}=require("../utils/auth");
 import { creatJwtToken } from '../utils/auth';
 
 export const verifyLogin = async (req: any, res: any) => {
@@ -22,7 +21,6 @@ export const verifyLogin = async (req: any, res: any) => {
     let token = creatJwtToken(user);
     res.cookie("token", token);
     res.send(`Login Successfull  Token: ${token}`);
-
 }
 
 module.exports = verifyLogin;

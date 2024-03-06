@@ -11,9 +11,8 @@ const creatJwtToken = (user) => {
 };
 exports.creatJwtToken = creatJwtToken;
 const verifyToken = (req, res, next) => {
-    var _a, _b;
-    console.log((_a = req.headers.cookie) === null || _a === void 0 ? void 0 : _a.split("=")[1]);
-    let token = String((_b = req.headers.cookie) === null || _b === void 0 ? void 0 : _b.split("=")[1]);
+    var _a;
+    let token = String((_a = req.headers.cookie) === null || _a === void 0 ? void 0 : _a.split("=")[1]);
     let decode = jsonwebtoken_1.default.verify(token, secretKey);
     if (decode) {
         req.user = decode;

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createTweet = void 0;
+exports.getAllTweets = exports.createTweet = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 // import verifyToken from "../utils/auth";
@@ -41,4 +41,21 @@ const createTweet = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.createTweet = createTweet;
-module.exports = { createTweet: exports.createTweet };
+const getAllTweets = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const user = yield prisma.user.findUnique({
+        where: {
+            id: Number(id)
+        },
+        include: {
+            tweets: true
+        },
+    });
+    if (!user) {
+        res.send("User Not Found");
+    }
+    let allTweets = user === null || user === void 0 ? void 0 : user.tweets;
+    return res.send(allTweets);
+});
+exports.getAllTweets = getAllTweets;
+module.exports = { createTweet: exports.createTweet, getAllTweets: exports.getAllTweets };

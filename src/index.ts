@@ -19,6 +19,3 @@ app.use("/login", loginRoutes);
 app.listen(PORT, () => {
     console.log(`https://localhost:${PORT}`);
 })
-
-//HW - Complete code of all the routes
-//HW Authenticate using JWT and protect all routes

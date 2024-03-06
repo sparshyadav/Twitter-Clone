@@ -17,7 +17,6 @@ app.get("/", (req, res) => {
 app.use("/user", userRoutes);
 app.use("/tweet", tweetRoutes);
 app.use("/login", loginRoutes);
-// app.use("/tweet", tweetRoutes);
 app.listen(PORT, () => {
     console.log(`https://localhost:${PORT}`);
 });

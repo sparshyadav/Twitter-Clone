@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-// import verifyToken from "../utils/auth";
 
 // Creating a New Tweet
 export const createTweet = async (req: any, res: any) => {
@@ -32,4 +31,23 @@ export const createTweet = async (req: any, res: any) => {
     }
 }
 
-module.exports = { createTweet }  
+export const getAllTweets = async (req: any, res: any) => {
+    const id = req.params.id;
+    const user = await prisma.user.findUnique({
+        where: {
+            id: Number(id)
+        },
+        include: {
+            tweets: true
+        },
+    })
+
+    if (!user) {
+        res.send("User Not Found");
+    }
+
+    let allTweets = user?.tweets;
+    return res.send(allTweets);
+}
+
+module.exports = { createTweet, getAllTweets }  
