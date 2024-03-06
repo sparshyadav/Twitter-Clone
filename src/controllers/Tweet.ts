@@ -18,7 +18,7 @@ export const createTweet = async (req: any, res: any) => {
             where: { id: id },
             data: {
                 tweets: { connect: { id: tweet.id } },
-            },
+            }
         });
 
         console.log("Tweet Created");

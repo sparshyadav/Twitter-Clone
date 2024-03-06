@@ -2,6 +2,9 @@ import express from "express";
 const userRoutes = require("./routes/user");
 const tweetRoutes = require("./routes/tweet");
 const loginRoutes = require("./routes/login");
+const likeRouter = require("./routes/like");
+const commentRouter = require("./routes/comment");
+
 const PORT = 4455;
 const app = express();
 
@@ -15,6 +18,8 @@ app.get("/", (req, res) => {
 app.use("/user", userRoutes);
 app.use("/tweet", tweetRoutes);
 app.use("/login", loginRoutes);
+app.use("/likes", likeRouter);
+app.use("/comment", commentRouter);
 
 app.listen(PORT, () => {
     console.log(`https://localhost:${PORT}`);

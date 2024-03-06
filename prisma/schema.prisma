@@ -24,10 +24,29 @@ model User {
 }
 
 model Tweet {
-  id       Int      @id @default(autoincrement())
-  title    String
-  content  String
-  createAt DateTime @default(now())
-  user     User     @relation(fields: [userid], references: [id])
-  userid   Int
+  id           Int       @id @default(autoincrement())
+  title        String
+  content      String
+  createAt     DateTime  @default(now())
+  user         User      @relation(fields: [userid], references: [id])
+  userid       Int
+  likecount    Int       @default(0)
+  commentcount Int       @default(0)
+  like         Like[]
+  Comment      Comment[]
+}
+
+model Like {
+  id      Int   @id @default(autoincrement())
+  userid  Int
+  tweetid Int
+  tweet   Tweet @relation(fields: [tweetid], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  userid  Int
+  tweetid Int
+  body    String
+  tweet   Tweet  @relation(fields: [tweetid], references: [id], onDelete: Cascade)
 }
