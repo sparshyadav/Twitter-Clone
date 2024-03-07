@@ -9,26 +9,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyLogin = void 0;
+exports.addComment = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const auth_1 = require("../utils/auth");
-const verifyLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    let user = yield prisma.user.findUnique({
-        where: {
-            email: email
-        }
-    });
-    if (!user) {
-        return res.send("No User Found");
+const addComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const userid = req.user.id;
+        const body = req.body;
+        const comment = yield prisma.comment.create({
+            data: body
+        });
+        const updateTweet = yield prisma.tweet.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                Comment: { connect: { id: comment.id } },
+            },
+        });
+        console.log("Comment Added");
+        return res.send(updateTweet);
     }
-    if (user.password !== password) {
-        return res.send("Password Did not Match");
+    catch (err) {
+        console.log("An Error Occurred While Adding Comment");
+        console.error(err);
+        return res.send("An Error Occurred");
     }
-    let token = (0, auth_1.creatJwtToken)(user);
-    res.cookie("token", token);
-    res.send(`Login Successfull  Token: ${token}`);
 });
-exports.verifyLogin = verifyLogin;
-module.exports = exports.verifyLogin;
+exports.addComment = addComment;
+module.exports = exports.addComment;

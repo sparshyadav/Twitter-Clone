@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllTweets = exports.createTweet = void 0;
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-// import verifyToken from "../utils/auth";
 // Creating a New Tweet
 const createTweet = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -29,7 +28,7 @@ const createTweet = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             where: { id: id },
             data: {
                 tweets: { connect: { id: tweet.id } },
-            },
+            }
         });
         console.log("Tweet Created");
         return res.send(tweet);
